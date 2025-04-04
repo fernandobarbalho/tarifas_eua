@@ -1,0 +1,213 @@
+country,new_us_tariff,alleged_tariff_charged_to_us,iso_a2,iso_a3
+China,34,67,CN,CHN
+European Union,20,39
+Austria,20,39,AT,AUT
+Belgium,20,39,BE,BEL
+Bulgaria,20,39,BG,BGR
+Croatia,20,39,HR,HRV
+Cyprus,20,39,CY,CYP
+Czech Republic,20,39,CZ,CZE
+Denmark,20,39,DK,DNK
+Estonia,20,39,EE,EST
+Finland,20,39,FI,FIN
+France,20,39,FR,FRA
+Germany,20,39,DE,DEU
+Greece,20,39,GR,GRC
+Hungary,20,39,HU,HUN
+Ireland,20,39,IE,IRL
+Italy,20,39,IT,ITA
+Latvia,20,39,LV,LVA
+Lithuania,20,39,LT,LTU
+Luxembourg,20,39,LU,LUX
+Malta,20,39,MT,MLT
+Netherlands,20,39,NL,NLD
+Poland,20,39,PL,POL
+Portugal,20,39,PT,PRT
+Romania,20,39,RO,ROU
+Slovakia,20,39,SK,SVK
+Slovenia,20,39,SI,SVN
+Spain,20,39,ES,ESP
+Sweden,20,39,SE,SWE
+Vietnam,46,90,VN,VNM
+Taiwan,32,64,TW,TWN
+Japan,24,46,JP,JPN
+India,26,52,IN,IND
+South Korea,25,50,KR,KOR
+Thailand,36,72,TH,THA
+Switzerland,31,61,CH,CHE
+Indonesia,32,64,ID,IDN
+Malaysia,24,47,MY,MYS
+Cambodia,49,97,KH,KHM
+United Kingdom,10,10,GB,GBR
+South Africa,30,60,ZA,ZAF
+Brazil,10,10,BR,BRA
+Bangladesh,37,74,BD,BGD
+Singapore,10,10,SG,SGP
+Israel,17,33,IL,ISR
+Philippines,17,34,PH,PHL
+Chile,10,10,CL,CHL
+Australia,10,10,AU,AUS
+Pakistan,29,58,PK,PAK
+Turkey,10,10,TR,TUR
+Sri Lanka,44,88,LK,LKA
+Colombia,10,10,CO,COL
+Peru,10,10,PE,PER
+Nicaragua,18,36,NI,NIC
+Norway,15,30,NO,NOR
+Costa Rica,10,17,CR,CRI
+Jordan,20,40,JO,JOR
+Dominican Republic,10,10,DO,DOM
+United Arab Emirates,10,10,AE,ARE
+New Zealand,10,20,NZ,NZL
+Argentina,10,10,AR,ARG
+Ecuador,10,12,EC,ECU
+Guatemala,10,10,GT,GTM
+Honduras,10,10,HN,HND
+Madagascar,47,93,MG,MDG
+Myanmar,44,88,MM,MMR
+Tunisia,28,55,TN,TUN
+Kazakhstan,27,54,KZ,KAZ
+Serbia,37,74,RS,SRB
+Egypt,10,10,EG,EGY
+Saudi Arabia,10,10,SA,SAU
+El Salvador,10,10,SV,SLV
+Côte d’Ivoire,21,41,CI,CIV
+Laos,48,95,LA,LAO
+Botswana,37,74,BW,BWA
+Trinidad and Tobago,10,12,TT,TTO
+Morocco,10,10,MA,MAR
+Algeria,30,59,DZ,DZA
+Oman,10,10,OM,OMN
+Uruguay,10,10,UY,URY
+Bahamas,10,10,BS,BHS
+Lesotho,50,99,LS,LSO
+Ukraine,10,10,UA,UKR
+Bahrain,10,10,BH,BHR
+Qatar,10,10,QA,QAT
+Mauritius,40,80,MU,MUS
+Fiji,32,63,FJ,FJI
+Iceland,10,10,IS,ISL
+Kenya,10,10,KE,KEN
+Liechtenstein,37,73,LI,LIE
+Guyana,38,76,GY,GUY
+Haiti,10,10,HT,HTI
+Bosnia and Herzegovina,35,70,BA,BIH
+Nigeria,14,27,NG,NGA
+Namibia,21,42,NA,NAM
+Brunei,24,47,BN,BRN
+Bolivia,10,20,BO,BOL
+Panama,10,10,PA,PAN
+Venezuela,15,29,VE,VEN
+North Macedonia,33,65,MK,MKD
+Ethiopia,10,10,ET,ETH
+Ghana,10,17,GH,GHA
+Moldova,31,61,MD,MDA
+Angola,32,63,AO,AGO
+Democratic Republic of the Congo,11,22,CD,COD
+Jamaica,10,10,JM,JAM
+Mozambique,16,31,MZ,MOZ
+Paraguay,10,10,PY,PRY
+Zambia,17,33,ZM,ZMB
+Lebanon,10,10,LB,LBN
+Tanzania,10,10,TZ,TZA
+Iraq,39,78,IQ,IRQ
+Georgia,10,10,GE,GEO
+Senegal,10,10,SN,SEN
+Azerbaijan,10,10,AZ,AZE
+Cameroon,11,22,CM,CMR
+Uganda,10,20,UG,UGA
+Albania,10,10,AL,ALB
+Armenia,10,10,AM,ARM
+Nepal,10,10,NP,NPL
+Sint Maarten,10,10,SX,SXM
+Falkland Islands,41,82,FK,FLK
+Gabon,10,10,GA,GAB
+Kuwait,10,10,KW,KWT
+Togo,10,10,TG,TGO
+Suriname,10,10,SR,SUR
+Belize,10,10,BZ,BLZ
+Papua New Guinea,10,15,PG,PNG
+Malawi,17,34,MW,MWI
+Liberia,10,10,LR,LBR
+British Virgin Islands,10,10,VG,VGB
+Afghanistan,10,49,AF,AFG
+Zimbabwe,18,35,ZW,ZWE
+Benin,10,10,BJ,BEN
+Barbados,10,10,BB,BRB
+Monaco,10,10,MC,MCO
+Syria,41,81,SY,SYR
+Uzbekistan,10,10,UZ,UZB
+Republic of the Congo,10,10,CG,COG
+Djibouti,10,10,DJ,DJI
+French Polynesia,10,10,PF,PYF
+Cayman Islands,10,10,KY,CYM
+Kosovo,10,10,XK,XKX
+Curaçao,10,10,CW,CUW
+Vanuatu,22,44,VU,VUT
+Rwanda,10,10,RW,RWA
+Sierra Leone,10,10,SL,SLE
+Mongolia,10,10,MN,MNG
+San Marino,10,10,SM,SMR
+Antigua and Barbuda,10,10,AG,ATG
+Bermuda,10,10,BM,BMU
+Eswatini,10,10,SZ,SWZ
+Marshall Islands,10,10,MH,MHL
+Saint Pierre and Miquelon,50,99,PM,SPM
+Saint Kitts and Nevis,10,10,KN,KNA
+Turkmenistan,10,10,TM,TKM
+Grenada,10,10,GD,GRD
+Sudan,10,10,SD,SDN
+Turks and Caicos Islands,10,10,TC,TCA
+Aruba,10,10,AW,ABW
+Montenegro,10,10,ME,MNE
+Saint Helena,10,15,SH,SHN
+Kyrgyzstan,10,10,KG,KGZ
+Yemen,10,10,YE,YEM
+Saint Vincent and the Grenadines,10,10,VC,VCT
+Niger,10,10,NE,NER
+Saint Lucia,10,10,LC,LCA
+Nauru,30,59,NR,NRU
+Equatorial Guinea,13,25,GQ,GNQ
+Iran,10,10,IR,IRN
+Libya,31,61,LY,LBY
+Samoa,10,10,WS,WSM
+Guinea,10,10,GN,GIN
+Timor-Leste,10,10,TL,TLS
+Montserrat,10,10,MS,MSR
+Chad,13,26,TD,TCD
+Mali,10,10,ML,MLI
+Maldives,10,10,MV,MDV
+Tajikistan,10,10,TJ,TJK
+Cabo Verde,10,10,CV,CPV
+Burundi,10,10,BI,BDI
+Guadeloupe,10,10,GP,GLP
+Bhutan,10,10,BT,BTN
+Martinique,10,10,MQ,MTQ
+Tonga,10,10,TO,TON
+Mauritania,10,10,MR,MRT
+Dominica,10,10,DM,DMA
+Micronesia,10,10,FM,FSM
+Gambia,10,10,GM,GMB
+French Guiana,10,10,GF,GUF
+Christmas Island,10,10,CX,CXR
+Andorra,10,10,AD,AND
+Central African Republic,10,10,CF,CAF
+Solomon Islands,10,10,SB,SLB
+Mayotte,10,10,YT,MYT
+Anguilla,10,10,AI,AIA
+Cocos (Keeling) Islands,10,10,CC,CCK
+Eritrea,10,10,ER,ERI
+Cook Islands,10,10,CK,COK
+South Sudan,10,10,SS,SSD
+Comoros,10,10,KM,COM
+Kiribati,10,10,KI,KIR
+São Tomé and Príncipe,10,10,ST,STP
+Norfolk Island,29,58,NF,NFK
+Gibraltar,10,10,GI,GIB
+Tuvalu,10,10,TV,TUV
+British Indian Ocean Territory,10,10,IO,IOT
+Tokelau,10,10,TK,TKL
+Guinea-Bissau,10,10,GW,GNB
+Svalbard and Jan Mayen,10,10,SJ,SJM
+Heard and McDonald Islands,10,10,HM,HMD
+Reunion,73,37,RE,REU

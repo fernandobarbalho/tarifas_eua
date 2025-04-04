@@ -1,0 +1,151 @@
+---
+title: "Tarifas de importação dos EUA"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(shiny)
+library(flexdashboard)
+library(tidyverse)
+library(sf)
+library(spData)
+library(colorspace)
+library(plotly)
+library(DT)
+
+data("world")
+
+tarifas_trump <- read_csv("tarifas_trump.csv")
+
+
+
+```
+
+
+# Mapa de novas tarifas
+
+## Column
+
+### Mapa
+
+```{r dpi=300}
+renderPlotly({
+  
+map<-  
+world %>%
+  left_join(
+    tarifas_trump %>%
+      rename(tarifa = new_us_tariff)
+  ) %>%
+  ggplot() +
+  geom_sf(aes(fill = tarifa, text= paste(country,": ", tarifa,"%"))) +
+  scale_fill_continuous_sequential(palette = "Heat 2")+
+    theme_void() +
+    theme(
+      panel.background = element_rect(fill="#57A8C2"),
+      text = element_text(colour = "black"),
+
+    ) +
+    labs(
+      title = "Novas tarifas dos EUA para importação",
+      caption = "Fonte: Guardian.",
+      fill= "%"
+    )
+
+
+  ggplotly(map, tooltip = c("text"))
+})
+
+
+
+
+```
+
+
+# Mapa de tarifas alegadamente aplicadas aos EUA
+
+## Column
+
+### Mapa
+
+```{r dpi=300}
+renderPlotly({
+  
+map<-  
+world %>%
+  left_join(
+    tarifas_trump %>%
+      rename(tarifa = alleged_tariff_charged_to_us)
+  ) %>%
+  ggplot() +
+  geom_sf(aes(fill = tarifa, text= paste(country,": ", tarifa,"%"))) +
+  scale_fill_continuous_sequential(palette = "Heat 2")+
+    theme_void() +
+    theme(
+      panel.background = element_rect(fill="#57A8C2"),
+      text = element_text(colour = "black"),
+
+    ) +
+    labs(
+      title = "Tarifas impostas aos EUA (conforme alegado pelo governo dos EUA)",
+      caption = "Fonte: Guardian.",
+      fill= "%"
+    )
+
+
+  ggplotly(map, tooltip = c("text"))
+})
+
+
+
+
+```
+
+# Tabela completa
+
+## Column
+
+### Tabela
+
+
+```{r}
+
+renderDT({
+    
+  tabela<-
+    as.tibble(world %>%
+                      inner_join(tarifas_trump))  %>%
+    select(country, iso_a2, iso_a3, continent, subregion, new_us_tariff, alleged_tariff_charged_to_us )
+  
+  nomes_colunas<- c("País", "Código ISO-2", "Código ISO-3", "Continente", "Sub-região", "Nova Tarifa", "Tarifa alegada")
+    
+ tabela %>%
+    arrange(country, desc(new_us_tariff)) %>%
+    DT::datatable(
+      rownames = FALSE,
+      colnames = nomes_colunas,
+      fillContainer = TRUE,
+      selection = c("none"),
+      extensions = 'Buttons',
+      options = list(
+        ordering=TRUE,
+        paging=TRUE,
+        searching= TRUE,
+        info = TRUE,
+        pageLength = NROW(tabela),
+        dom = 'Bfrtip',
+        buttons = c('copy',"csv","excel")
+      ))%>%
+    formatRound(6:7,digits = 0, mark=".", dec.mark= ",") 
+
+  
+})
+
+  
+```
+
