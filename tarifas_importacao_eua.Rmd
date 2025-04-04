@@ -23,6 +23,15 @@ data("world")
 tarifas_trump <- read_csv("tarifas_trump.csv")
 
 
+comercio_exterior <- readRDS("comercio_exterior.rds")
+
+saldo_comercio_eua<- 
+  (comercio_exterior %>%
+  filter(reporter_iso == "USA"))$saldo
+
+comercio_mundial<-
+  sum(comercio_exterior$export[comercio_exterior$partner_desc=="World"])
+  
 
 ```
 
@@ -43,7 +52,7 @@ world %>%
       rename(tarifa = new_us_tariff)
   ) %>%
   ggplot() +
-  geom_sf(aes(fill = tarifa, text= paste(country,": ", tarifa,"%"))) +
+  geom_sf(aes(fill = tarifa, text = paste(name_long, ifelse(is.na(tarifa),"",": ") , ifelse(is.na(tarifa),"",tarifa) , ifelse(is.na(tarifa),"","%")))) +
   scale_fill_continuous_sequential(palette = "Heat 2")+
     theme_void() +
     theme(
@@ -51,7 +60,8 @@ world %>%
       text = element_text(colour = "black"),
 
     ) +
-    labs(
+   coord_sf(xlim = c(-180,180), ylim=c(-40,82))+
+   labs(
       title = "Novas tarifas dos EUA para importação",
       caption = "Fonte: Guardian.",
       fill= "%"
@@ -83,7 +93,7 @@ world %>%
       rename(tarifa = alleged_tariff_charged_to_us)
   ) %>%
   ggplot() +
-  geom_sf(aes(fill = tarifa, text= paste(country,": ", tarifa,"%"))) +
+  geom_sf(aes(fill = tarifa, text = paste(name_long, ifelse(is.na(tarifa),"",": ") , ifelse(is.na(tarifa),"",tarifa) , ifelse(is.na(tarifa),"","%")))) +
   scale_fill_continuous_sequential(palette = "Heat 2")+
     theme_void() +
     theme(
@@ -91,6 +101,7 @@ world %>%
       text = element_text(colour = "black"),
 
     ) +
+    coord_sf(xlim = c(-180,180), ylim=c(-40,82))+
     labs(
       title = "Tarifas impostas aos EUA (conforme alegado pelo governo dos EUA)",
       caption = "Fonte: Guardian.",
@@ -106,6 +117,125 @@ world %>%
 
 ```
 
+
+# Mapa do comércio exterior (comércio com EUA)
+
+## Column
+
+### Mapa saldo comercial de bens e serviços referência EUA
+
+```{r dpi=300}
+renderPlotly({
+  
+  dados_mapa<-  
+    world %>%
+    left_join(
+      comercio_exterior %>%
+        filter(partner_desc == "USA") %>%
+        rename(iso_a3 = reporter_iso) %>%
+        mutate(saldo_comercial_rel_pais = (round(saldo/saldo_comercio_eua,4)*-1)*100) %>%
+        inner_join(
+          tarifas_trump %>%
+            select(iso_a3, iso_a2)
+        )
+    ) 
+  
+  
+  
+  map<-
+    
+    dados_mapa %>%
+    ggplot() +
+    geom_sf(aes(fill = cut(saldo_comercial_rel_pais,
+                           #breaks = c(-Inf, -100, seq(-90, 90, by = 10), 100, Inf)),
+                           breaks = c(-11, seq(-10, 25, by = 0.2), 30)),
+                text = paste(name_long, ifelse(is.na(saldo_comercial_rel_pais),"",": ") , ifelse(is.na(saldo_comercial_rel_pais),"",saldo_comercial_rel_pais) , ifelse(is.na(saldo_comercial_rel_pais),"","%")))) +
+    scale_fill_discrete_divergingx(palette = "Rdbu",
+                                   na.value = "gray50") +
+    
+    #   geom_sf(aes(fill = saldo_comercial_rel_pais,
+    #             text = paste(name_long, ifelse(is.na(saldo_comercial_rel_pais),"",": ") , ifelse(is.na(saldo_comercial_rel_pais),"",saldo_comercial_rel_pais) , ifelse(is.na(saldo_comercial_rel_pais),"","%")))) +
+    # scale_fill_continuous_divergingx(palette = "Rdbu",
+    #                                na.value = "gray50") +
+
+    theme_void() +
+    theme(
+      panel.background = element_rect(fill = "#57A8C2"),
+      text = element_text(colour = "black")
+    ) +
+    coord_sf(xlim = c(-180,180), ylim=c(-40,82))+
+    labs(
+      title = "Saldo da balança comercial com EUA (% do saldo dos EUA)",
+      caption = "Fonte: Guardian.",
+      fill= "saldo"
+    )
+  
+  
+  ggplotly(map, tooltip = c("text"))
+})
+
+
+
+
+```
+
+
+# Mapa do comércio exterior (comércio com mundo)
+
+## Column
+
+### Mapa saldo comercial de bens e serviços referência EUA
+
+```{r dpi=300}
+renderPlotly({
+  
+  dados_mapa<-  
+    world %>%
+    left_join(
+      comercio_exterior %>%
+        filter(partner_desc == "World") %>%
+        rename(iso_a3 = reporter_iso) %>%
+        mutate(saldo_rel_exportacao = round(saldo_rel_exportacao,1)) %>%
+        inner_join(
+          tarifas_trump %>%
+            select(iso_a3, iso_a2)
+        )
+    ) 
+  
+  
+  
+  map<-
+    
+    dados_mapa %>%
+    ggplot() +
+    geom_sf(aes(fill = cut(saldo_rel_exportacao, 
+                           breaks = c(-Inf, -100, seq(-90, 90, by = 10), 100, Inf)),
+                text = paste(name_long, ifelse(is.na(saldo_rel_exportacao),"",": ") , ifelse(is.na(saldo_rel_exportacao),"",saldo_rel_exportacao) , ifelse(is.na(saldo_rel_exportacao),"","%")))) +
+    scale_fill_discrete_divergingx(palette = "Rdbu",
+                                   na.value = "gray50") +
+    theme_void() +
+    theme(
+      panel.background = element_rect(fill = "#57A8C2"),
+      text = element_text(colour = "black")
+    ) +
+    coord_sf(xlim = c(-180,180), ylim=c(-40,82))+
+    labs(
+      title = "Saldo da balança comercial com mundo (% das exportações)",
+      caption = "Fonte: Guardian.",
+      fill= "saldo"
+    )
+  
+  
+  ggplotly(map, tooltip = c("text"))
+})
+
+
+
+
+```
+
+
+
 # Tabela completa
 
 ## Column
@@ -116,15 +246,37 @@ world %>%
 ```{r}
 
 renderDT({
-    
+  
+  
+  # tabela<-
+  #   as.tibble( world %>%
+  #   left_join(
+  #     comercio_exterior %>%
+  #       rename(iso_a3 = reporter_iso) %>%
+  #       mutate(saldo_rel_exportacao = round(saldo_rel_exportacao,1)) %>%
+  #       inner_join(
+  #         tarifas_trump %>%
+  #           select(iso_a3, iso_a2, new_us_tariff, alleged_tariff_charged_to_us)
+  #       )
+  #   ) ) %>%
+  #   filter(!is.na(partner_desc)) %>%
+  #   select(name_long, iso_a2, iso_a3, continent, subregion, new_us_tariff, alleged_tariff_charged_to_us, partner_desc, import, export, saldo, saldo_rel_exportacao ) %>%
+  #   pivot_wider(names_from = partner_desc,
+  #               values_from = c( import, export,saldo, saldo_rel_exportacao))
+  
+  
+  
   tabela<-
     as.tibble(world %>%
-                      inner_join(tarifas_trump))  %>%
+                inner_join(tarifas_trump))  %>%
     select(country, iso_a2, iso_a3, continent, subregion, new_us_tariff, alleged_tariff_charged_to_us )
   
+  # nomes_colunas<- c("País", "Código ISO-2", "Código ISO-3", "Continente", "Sub-região", "Nova Tarifa", "Tarifa alegada","Importação Mundo", "Importação EUA","Exportação mundo","Exportação EUA", "Saldo Mundo", "Saldo EUA", "Saldo relativo Mundo", "Saldo relativo EUA")
+  
   nomes_colunas<- c("País", "Código ISO-2", "Código ISO-3", "Continente", "Sub-região", "Nova Tarifa", "Tarifa alegada")
-    
- tabela %>%
+
+  
+  tabela %>%
     arrange(country, desc(new_us_tariff)) %>%
     DT::datatable(
       rownames = FALSE,
@@ -142,7 +294,7 @@ renderDT({
         buttons = c('copy',"csv","excel")
       ))%>%
     formatRound(6:7,digits = 0, mark=".", dec.mark= ",") 
-
+  
   
 })
 
