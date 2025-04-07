@@ -50,6 +50,8 @@ renderPlotly({
   
 map<-  
 world %>%
+  st_make_valid() %>% 
+  st_simplify(dTolerance = 0.01) %>% 
   left_join(
     tarifas_trump %>%
       rename(tarifa = new_us_tariff)
@@ -145,7 +147,13 @@ renderPlotly({
         )
     ) 
   
-  
+  fab<-
+    dados_mapa %>%
+    filter(iso_a2=="PY") %>%
+    select(name_long, saldo_comercial_rel_pais )
+
+  print(fab)
+
   
   map<-
     
@@ -200,7 +208,12 @@ renderPlotly({
         )
     ) 
   
-  
+  fab<-
+    dados_mapa %>%
+    filter(iso_a2=="PY") %>%
+    select(name_long, participao_exportacao_mundial )
+
+  print(fab)
   
   map<-
     
@@ -231,7 +244,6 @@ renderPlotly({
 
 
 ```
-
 
 # Mapa do comércio exterior (importações mundo)
 
@@ -288,7 +300,6 @@ renderPlotly({
 
 ```
 
-
 # Tabela completa
 
 ## Column
@@ -315,6 +326,11 @@ renderDT({
         )
     ) ) %>%
     filter(!is.na(partner_desc)) %>%
+    mutate(name_long = as.factor(name_long),
+           iso_a2 =as.factor(iso_a2),
+           iso_a3 = as.factor(iso_a3),
+           continent = as.factor(continent),
+           subregion = as.factor(subregion)) %>%
     select(name_long, iso_a2, iso_a3, continent, subregion, new_us_tariff, alleged_tariff_charged_to_us, partner_desc, import, export, saldo, saldo_comercial_rel_pais,participao_exportacao_mundial, participao_importacao_mundial ) %>%
     pivot_wider(names_from = partner_desc,
                 values_from = c( import, export,saldo,  saldo_comercial_rel_pais,participao_exportacao_mundial, participao_importacao_mundial)) %>%
@@ -330,6 +346,7 @@ renderDT({
   tabela %>%
     arrange(name_long, desc(new_us_tariff)) %>%
     DT::datatable(
+      filter = "top",
       rownames = FALSE,
       colnames = nomes_colunas,
       fillContainer = TRUE,
