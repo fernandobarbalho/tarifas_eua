@@ -17,6 +17,7 @@ library(spData)
 library(colorspace)
 library(plotly)
 library(DT)
+#library(ggiraph)
 
 data("world")
 
@@ -43,19 +44,66 @@ sum(comercio_exterior$import[comercio_exterior$partner_desc=="World"])
 
 # Mapa de novas tarifas
 
-## Column
-
 ### Mapa
 
 ```{r dpi=300}
+# renderGirafe({
+#   
+#   dado_texto<- tibble(x=-160, y=-50, text = "Elaboração: Fernando Barbalho")  
+#     
+# map<-  
+# world %>%
+#   st_make_valid() %>% 
+#   st_simplify(dTolerance = 0.01) %>% 
+#   left_join(
+#     tarifas_trump %>%
+#       rename(tarifa = new_us_tariff)
+#   ) %>%
+#   ggplot() +
+#   geom_sf_interactive(aes(fill = tarifa, tooltip = paste(name_long, ifelse(is.na(tarifa),"",": ") , ifelse(is.na(tarifa),"",tarifa) , ifelse(is.na(tarifa),"","%")))) +
+#   scale_fill_continuous_sequential(palette = "Heat 2")+
+#     theme_void() +
+#     theme(
+#       panel.background = element_rect(fill=cor_mar),
+#       text = element_text(colour = "black", size=45),
+#       legend.key.height = unit(3, "cm"),  # Key heigh,
+#       legend.key.width = unit(2, "cm"),  # Key heigh,
+#       plot.title = element_text(
+#       hjust = 0.5,
+#       size = 75,
+#       color = "darkblue",
+#       face = "bold")
+#       
+#     ) +
+#    coord_sf(xlim = c(-180,180), ylim=c(-50,82))+
+#    #geom_text(data = dado_texto, aes(x=x, y=y, label= text) , color = "white") +
+#    labs(
+#       title = "Novas tarifas dos EUA para importação",
+#       caption = "Fonte: The Guardian. Elaboração: Fernando Barbalho",
+#       fill= "%"
+#     )
+# 
+# 
+#   #ggplotly(map, tooltip = c("text")) 
+# 
+#   return(girafe(code = print(map), 
+#                   width_svg = (60),
+#                   height_svg = (24)))
+# 
+#   # girafe(ggobj = map,
+#   # options = list(opts_sizing(rescale = FALSE ),
+#   #                ))
+#   
+# })
+
 renderPlotly({
 
-dado_texto<- tibble(x=-160, y=-50, text = "Elaboração: Fernando Barbalho")  
-    
-map<-  
+dado_texto<- tibble(x=-160, y=-50, text = "Elaboração: Fernando Barbalho")
+
+map<-
 world %>%
-  st_make_valid() %>% 
-  st_simplify(dTolerance = 0.01) %>% 
+  st_make_valid() %>%
+  st_simplify(dTolerance = 0.01) %>%
   left_join(
     tarifas_trump %>%
       rename(tarifa = new_us_tariff)
@@ -78,7 +126,7 @@ world %>%
     )
 
 
-  ggplotly(map, tooltip = c("text")) 
+  ggplotly(map, tooltip = c("text"))
 })
 
 
