@@ -150,7 +150,7 @@ quantile(tabela$saldo_comercial_rel_pais_USA, na.rm=TRUE)
 tabela %>%
   mutate(resultado = ifelse(saldo_comercial_rel_pais_USA>0,"Superávit","Défict")) %>%
   ggplot() +
-  geom_point(aes(x= alleged_tariff_charged_to_us , y= new_us_tariff, fill=resultado, size= abs(saldo_comercial_rel_pais_USA)  ),pch= 21, color= "black") +
+  geom_point(aes(x= alleged_tariff_charged_to_us , y= new_us_tariff, fill=resultado, size= abs(saldo_comercial_rel_pais_USA)  ),pch= 21, color= "#606060") +
   theme_light() +
   theme(
     panel.background = element_rect(fill= "black"),
@@ -158,6 +158,27 @@ tabela %>%
   ) +
   scale_fill_discrete_qualitative(palette= "Dark 2") +
   labs(
-    fill = 
+    fill = "Resultado",
+    size = "%"
   )
   
+
+
+tabela %>%
+  mutate(resultado = case_when(
+    saldo_comercial_rel_pais_USA>=0 ~"Superávit",
+    saldo_comercial_rel_pais_USA<0 ~"Défict",
+    is.na(saldo_comercial_rel_pais_USA) ~ "Sem informação")
+  ) %>%
+  ggplot() +
+  geom_boxplot(aes(x= resultado , y= new_us_tariff),fill= NA, color= "white") +
+  theme_light() +
+  theme(
+    panel.background = element_rect(fill= "black"),
+    panel.grid = element_blank()
+  ) +
+  scale_fill_discrete_qualitative(palette= "Dark 2") +
+  labs(
+    fill = "Resultado",
+    size = "%"
+  )
