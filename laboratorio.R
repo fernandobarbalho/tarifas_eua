@@ -170,8 +170,21 @@ tabela %>%
     saldo_comercial_rel_pais_USA<0 ~"Défict",
     is.na(saldo_comercial_rel_pais_USA) ~ "Sem informação")
   ) %>%
+  summarise(n(), .by = resultado)
+
+
+tabela %>%
+  mutate(resultado = case_when(
+    saldo_comercial_rel_pais_USA>=0 ~"Superávit",
+    saldo_comercial_rel_pais_USA<0 ~"Défict",
+    is.na(saldo_comercial_rel_pais_USA) ~ "Sem informação")
+  ) %>%
+  filter(resultado != "Sem informação") %>%
   ggplot() +
   geom_boxplot(aes(x= resultado , y= new_us_tariff),fill= NA, color= "white") +
+  geom_text(data= tibble(x="Défict", y=50, label= "N Superávit = 48"), aes(x=x, y=y,label= label),color = "white")+
+  geom_text(data= tibble(x="Défict", y=45, label= "N Défict = 76"), aes(x=x, y=y,label= label),color = "white")+
+  
   theme_light() +
   theme(
     panel.background = element_rect(fill= "black"),
@@ -179,6 +192,7 @@ tabela %>%
   ) +
   scale_fill_discrete_qualitative(palette= "Dark 2") +
   labs(
-    fill = "Resultado",
-    size = "%"
+    title = "Distribuição das novas tarifas por resultado do fluxo de comércio",
+    x= "Resultado fluxo com EUA",
+    y= "Nova Tarifa (%)"
   )
